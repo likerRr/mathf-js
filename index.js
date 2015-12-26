@@ -1,6 +1,10 @@
 'use strict';
 
-module.exports = {
+function powTwo(val) {
+  return val * 2;
+}
+
+let Mathf = {
   Deg2Rad: (Math.PI * 2) / 360,
 
   Epsilon: Number.EPSILON || Math.pow(2, -52),
@@ -17,7 +21,9 @@ module.exports = {
 
   acos: Math.acos,
 
-  approximately: () => {},
+  approximately: (f1, f2) => {
+    return Mathf.abs(f1 - f2) < Mathf.Epsilon;
+  },
 
   asin: Math.asin,
 
@@ -25,25 +31,48 @@ module.exports = {
 
   atan2: Math.atan2,
 
-  ceil: () => Math.ceil,
+  ceil: Math.ceil,
 
-  ceilToInt: () => {},
+  clamp: (value, min, max) => {
+    return value < min ? min : (value > max ? max : value);
+  },
 
-  clamp: () => {},
+  clamp01: (value) => {
+    return value < 0 ? 0 : (value > 1 ? 1 : value);
+  },
 
-  clamp01: () => {},
+  closestPowerOfTwo: (value) => {
+    let closestValue = 1;
 
-  closestPowerOfTwo: () => {},
+    if (value <= 2) return value;
+
+    while (closestValue <= value) {
+      closestValue = powTwo(closestValue);
+      if (value < closestValue / 2 + closestValue) {
+        break;
+      }
+    }
+
+    return closestValue;
+  },
 
   cos: Math.cos,
 
-  deltaAngle: () => {},
+  deltaAngle: (current, target) => {
+    if (current > 360) {
+      current %= 360;
+    }
+
+    if (target > 360) {
+      target %= 360;
+    }
+
+    return target - current;
+  },
 
   exp: Math.exp,
 
   floor: Math.floor,
-
-  floorToInt: () => {},
 
   gammaToLinearSpace: () => {},
 
@@ -91,9 +120,11 @@ module.exports = {
     return Math.round(num);
   },
 
-  roundToInt: () => {},
+  sign: (f) => {
+    f = +f;
 
-  sign: () => {},
+    return (f >= 0) ? 1 : -1;
+  },
 
   sin: Math.sin,
 
@@ -108,3 +139,5 @@ module.exports = {
   tan: Math.tan
 
 };
+
+module.exports = Mathf;
