@@ -1,105 +1,110 @@
 'use strict';
 
-class Mathf {
-  constructor() {
-    this.Deg2Rad = null;
+module.exports = {
+  Deg2Rad: (Math.PI * 2) / 360,
 
-    this.Epsilon = null;
+  Epsilon: Number.EPSILON || Math.pow(2, -52),
 
-    this.Infinity = null;
+  Infinity: Infinity,
 
-    this.NegativeInfinity = null;
+  NegativeInfinity: -Infinity,
 
-    this.PI = null;
+  PI: Math.PI,
 
-    this.Rad2Deg = null;
-  }
+  Rad2Deg: 360 / (Math.PI * 2),
 
-  static abs() {}
+  abs: Math.abs,
 
-  static acos() {}
+  acos: Math.acos,
 
-  static approximately() {}
+  approximately: () => {},
 
-  static asin() {}
+  asin: Math.asin,
 
-  static atan() {}
+  atan: Math.atan,
 
-  static atan2() {}
+  atan2: Math.atan2,
 
-  static ceil() {}
+  ceil: () => Math.ceil,
 
-  static ceilToInt() {}
+  ceilToInt: () => {},
 
-  static clamp() {}
+  clamp: () => {},
 
-  static clamp01() {}
+  clamp01: () => {},
 
-  static closestPowerOfTwo() {}
+  closestPowerOfTwo: () => {},
 
-  static cos() {}
+  cos: Math.cos,
 
-  static deltaAngle() {}
+  deltaAngle: () => {},
 
-  static exp() {}
+  exp: Math.exp,
 
-  static floor() {}
+  floor: Math.floor,
 
-  static floorToInt() {}
+  floorToInt: () => {},
 
-  static gammaToLinearSpace() {}
+  gammaToLinearSpace: () => {},
 
-  static inverseLerp() {}
+  inverseLerp: () => {},
 
-  static isPowerOfTwo() {}
+  isPowerOfTwo: () => {},
 
-  static lerp() {}
+  lerp: () => {},
 
-  static lerpAngle() {}
+  lerpAngle: () => {},
 
-  static lerpUnclamped() {}
+  lerpUnclamped: () => {},
 
-  static linearToGammaSpace() {}
+  linearToGammaSpace: () => {},
 
-  static log() {}
+  log: Math.log,
 
-  static log10() {}
+  log10: Math.log10,
 
-  static max() {}
+  max: Math.max,
 
-  static min() {}
+  min: Math.min,
 
-  static moveTowards() {}
+  moveTowards: () => {},
 
-  static moveTowardsAngle() {}
+  moveTowardsAngle: () => {},
 
-  static nextPowerOfTwo() {}
+  nextPowerOfTwo: () => {},
 
-  static perlinNoise() {}
+  perlinNoise: () => {},
 
-  static pingPong() {}
+  pingPong: () => {},
 
-  static pow() {}
+  pow: Math.pow,
 
-  static repeat() {}
+  repeat: () => {},
 
-  static round() {}
+  round: (num) => {
+    let ceilVal = num + 0.5;
 
-  static roundToInt() {}
+    if (ceilVal === Math.ceil(num)) {
+      return (ceilVal % 2 === 0) ? num + 0.5 : num - 0.5;
+    }
 
-  static sign() {}
+    return Math.round(num);
+  },
 
-  static sin() {}
+  roundToInt: () => {},
 
-  static smoothDamp() {}
+  sign: () => {},
 
-  static smoothDampAngle() {}
+  sin: Math.sin,
 
-  static smoothStep() {}
+  smoothDamp: () => {},
 
-  static sqrt() {}
+  smoothDampAngle: () => {},
 
-  static tan() {}
-}
+  smoothStep: () => {},
 
-module.exports = new Mathf();
+  sqrt: Math.sqrt,
+
+  tan: Math.tan
+
+};
