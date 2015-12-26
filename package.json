@@ -1,0 +1,25 @@
+{
+  "name": "mathf",
+  "version": "0.0.1",
+  "description": "Unity3D's Mathf port",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/likerRr/mathf-js.git"
+  },
+  "keywords": [
+    "math",
+    "mathf",
+    "unity3d",
+    "gamedev"
+  ],
+  "author": "Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerrr.ru)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/likerRr/mathf-js/issues"
+  },
+  "homepage": "https://github.com/likerRr/mathf-js#readme"
+}
