@@ -127,10 +127,8 @@ let Mathf = {
   },
 
   lerpUnclamped: (a, b, t) => {
-    let diff = Math.abs(b - a);
-
     if (t < 0 || t > 1) {
-      return a + diff * t;
+      return a + Math.abs(b - a) * t;
     }
 
     return (b - a) * Mathf.clamp01(t) + a;
