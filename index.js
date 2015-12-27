@@ -1,9 +1,5 @@
 'use strict';
 
-function powTwo(val) {
-  return val * 2;
-}
-
 let Mathf = {
   Deg2Rad: (Math.PI * 2) / 360,
 
@@ -47,7 +43,7 @@ let Mathf = {
     if (value <= 2) return value;
 
     while (closestValue <= value) {
-      closestValue = powTwo(closestValue);
+      closestValue *= 2;
       if (value < closestValue / 2 + closestValue) {
         break;
       }
@@ -74,19 +70,27 @@ let Mathf = {
 
   floor: Math.floor,
 
-  gammaToLinearSpace: () => {},
+  gammaToLinearSpace: (value) => {
+    return Math.pow(value, 2.2);
+  },
 
-  inverseLerp: () => {},
+  inverseLerp: (min, max, value) => {
+    return (Mathf.clamp(value, Mathf.min(min, max), Mathf.max(min, max)) - min) / (max - min);
+  },
 
   isPowerOfTwo: () => {},
 
-  lerp: () => {},
+  lerp: (a, b, t) => {
+    return (b - a) * Mathf.clamp01(t) + a;
+  },
 
   lerpAngle: () => {},
 
   lerpUnclamped: () => {},
 
-  linearToGammaSpace: () => {},
+  linearToGammaSpace: (value) => {
+    return Math.pow(value, 0.45454545);
+  },
 
   log: Math.log,
 
