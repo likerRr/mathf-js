@@ -38,28 +38,49 @@ let Mathf = {
   },
 
   closestPowerOfTwo: (value) => {
-    let closestValue = 1;
+    value = value >> 0;
 
-    if (value <= 2) return value;
+    if (value < 0) return 0;
 
-    while (closestValue <= value) {
-      closestValue *= 2;
-      if (value < closestValue / 2 + closestValue) {
-        break;
-      }
+    let nextPowerOfTwo = value;
+
+    --nextPowerOfTwo;
+    nextPowerOfTwo |= nextPowerOfTwo >> 1;
+    nextPowerOfTwo |= nextPowerOfTwo >> 2;
+    nextPowerOfTwo |= nextPowerOfTwo >> 4;
+    nextPowerOfTwo |= nextPowerOfTwo >> 8;
+    nextPowerOfTwo |= nextPowerOfTwo >> 16;
+    nextPowerOfTwo += 1;
+
+    if (nextPowerOfTwo - value > nextPowerOfTwo >> 2) {
+      return nextPowerOfTwo >> 1;
     }
 
-    return closestValue;
+    return nextPowerOfTwo;
+  },
+
+  closestPowerOfTwoLong: (value) => {
+    value = value >> 0;
+
+    if (value < 0) return 0;
+
+    let nextPowerOfTwo = 2 << Math.floor(Math.log2(value));
+
+    if (nextPowerOfTwo - value > nextPowerOfTwo >> 2) {
+      return nextPowerOfTwo >> 1;
+    }
+
+    return nextPowerOfTwo;
   },
 
   cos: Math.cos,
 
   deltaAngle: (current, target) => {
-    if (current > 360) {
+    if (Math.abs(current) > 360) {
       current %= 360;
     }
 
-    if (target > 360) {
+    if (Math.abs(target) > 360) {
       target %= 360;
     }
 
@@ -78,15 +99,42 @@ let Mathf = {
     return (Mathf.clamp(value, Mathf.min(min, max), Mathf.max(min, max)) - min) / (max - min);
   },
 
-  isPowerOfTwo: () => {},
+  /**
+   * @see http://stackoverflow.com/a/108360
+   * @param value
+   * @returns {boolean}
+   */
+  isPowerOfTwo: (value) => {
+    value = value >> 0;
+
+    return (value & (value - 1)) === 0;
+  },
 
   lerp: (a, b, t) => {
     return (b - a) * Mathf.clamp01(t) + a;
   },
 
-  lerpAngle: () => {},
+  lerpAngle: (a, b, t) => {
+    while (a > b + 180) {
+      b += 360;
+    }
 
-  lerpUnclamped: () => {},
+    while (b > a + 180) {
+      b -= 360;
+    }
+
+    return Mathf.lerp(a, b, t);
+  },
+
+  lerpUnclamped: (a, b, t) => {
+    let diff = Math.abs(b - a);
+
+    if (t < 0 || t > 1) {
+      return a + diff * t;
+    }
+
+    return (b - a) * Mathf.clamp01(t) + a;
+  },
 
   linearToGammaSpace: (value) => {
     return Math.pow(value, 0.45454545);
@@ -100,7 +148,7 @@ let Mathf = {
 
   min: Math.min,
 
-  moveTowards: () => {},
+  moveTowards: (b, a , r) => {},
 
   moveTowardsAngle: () => {},
 
@@ -125,8 +173,6 @@ let Mathf = {
   },
 
   sign: (f) => {
-    f = +f;
-
     return (f >= 0) ? 1 : -1;
   },
 
