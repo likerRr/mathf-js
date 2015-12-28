@@ -139,16 +139,13 @@ let Mathf = {
   min: Math.min,
 
   moveTowards: (current, target , maxDelta) => {
-    var clamp = maxDelta > 0;
-
-    if (current > target) {
-      maxDelta *= -1;
+    if (maxDelta > 0) {
+      if (target < current && current - maxDelta < target) return target;
+      else if (target > current && current + maxDelta > target) return target
     }
 
-    // TODO don't like this way. Think of optimization
-    if (clamp) {
-      if (target < current && current + maxDelta < target) return target;
-      if (target > current && current + maxDelta > target) return target;
+    if (current > target) {
+      return current - maxDelta;
     }
 
     return current + maxDelta;
