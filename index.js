@@ -1,5 +1,9 @@
 'use strict';
 
+function toInt(value) {
+  return value >> 0;
+}
+
 let Mathf = {
   Deg2Rad: (Math.PI * 2) / 360,
 
@@ -38,19 +42,7 @@ let Mathf = {
   },
 
   closestPowerOfTwo: (value) => {
-    value = value >> 0;
-
-    if (value < 0) return 0;
-
-    let nextPowerOfTwo = value;
-
-    --nextPowerOfTwo;
-    nextPowerOfTwo |= nextPowerOfTwo >> 1;
-    nextPowerOfTwo |= nextPowerOfTwo >> 2;
-    nextPowerOfTwo |= nextPowerOfTwo >> 4;
-    nextPowerOfTwo |= nextPowerOfTwo >> 8;
-    nextPowerOfTwo |= nextPowerOfTwo >> 16;
-    nextPowerOfTwo += 1;
+    let nextPowerOfTwo = Mathf.nextPowerOfTwo(value);
 
     if (nextPowerOfTwo - value > nextPowerOfTwo >> 2) {
       return nextPowerOfTwo >> 1;
@@ -60,7 +52,7 @@ let Mathf = {
   },
 
   closestPowerOfTwoLong: (value) => {
-    value = value >> 0;
+    value = toInt(value);
 
     if (value < 0) return 0;
 
@@ -105,7 +97,7 @@ let Mathf = {
    * @returns {boolean}
    */
   isPowerOfTwo: (value) => {
-    value = value >> 0;
+    value = toInt(value);
 
     return (value & (value - 1)) === 0;
   },
@@ -146,11 +138,39 @@ let Mathf = {
 
   min: Math.min,
 
-  moveTowards: (b, a , r) => {},
+  moveTowards: (current, target , maxDelta) => {
+    var clamp = maxDelta > 0;
+
+    if (current > target) {
+      maxDelta *= -1;
+    }
+
+    // TODO don't like this way. Think of optimization
+    if (clamp) {
+      if (target < current && current + maxDelta < target) return target;
+      if (target > current && current + maxDelta > target) return target;
+    }
+
+    return current + maxDelta;
+  },
 
   moveTowardsAngle: () => {},
 
-  nextPowerOfTwo: () => {},
+  nextPowerOfTwo: (value) => {
+    value = toInt(value);
+
+    if (value < 0) return 0;
+
+    --value;
+    value |= value >> 1;
+    value |= value >> 2;
+    value |= value >> 4;
+    value |= value >> 8;
+    value |= value >> 16;
+    value += 1;
+
+    return value;
+  },
 
   perlinNoise: () => {},
 
