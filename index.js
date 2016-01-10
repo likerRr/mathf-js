@@ -166,7 +166,11 @@ class Mathf {
     return (mod === 0) ? length : mod;
   }
 
-  static repeat() {}
+  static repeat(t, length) {
+    if (t > 0) return t % length;
+
+    return length + (t % length);
+  }
 
   static round(num) {
     let ceilVal = num + IS_INTEGER;
