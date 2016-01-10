@@ -171,7 +171,16 @@ let Mathf = {
 
   perlinNoise: () => {},
 
-  pingPong: () => {},
+  pingPong: (t, length) => {
+    if (t < 0) t = -t;
+    var mod = t % length;
+    // even
+    if (Math.ceil(t / length) % 2 === 0) {
+      return (mod === 0) ? 0 : length - (mod);
+    }
+
+    return (mod === 0) ? length : mod;
+  },
 
   pow: Math.pow,
 
