@@ -14,7 +14,8 @@
     "math",
     "mathf",
     "unity3d",
-    "gamedev"
+    "gamedev",
+    "algorithm"
   ],
   "author": "Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerrr.ru)",
   "license": "MIT",
