@@ -1,6 +1,6 @@
 {
   "name": "mathf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Unity3D's Mathf port",
   "main": "index.js",
   "scripts": {
