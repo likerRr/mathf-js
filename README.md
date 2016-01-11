@@ -132,7 +132,12 @@ Additional:
 *Same as `closestPowerOfTwo`, but deals well with big numbers. Use it if you really need to work with big numbers*
 
 ## How to use?
-As simple as usual `node` module:
+As simple as usual `node` module
+
+1. Install it:
+`npm install mathf`
+
+2. Require it:
 
 ```javascript
 let Mathf = require('mathf');
