@@ -5,7 +5,7 @@ Unity3D's [Mathf](http://docs.unity3d.com/ScriptReference/Mathf.html) port
 This is js port of Unity3D's Mathf class. It has been achieved by reverse engineering the work of original class and all the ported methods work exactly the same (except `PerlinNoise` method, cuz of different random realization and seed value). You can use this library in game development or in any other cases where you find existing methods useful.
 
 ## Which platform should I use?
-Originally it is `node` plugin serving by `npm` and using available ES6 features, but you can easily adopt it to work in browser with help of [Babel](https://babeljs.io/) or another ES6 transpiler
+Originally it is `node` plugin serving by `npm` and using available ES6 features, but you can easily adopt it to work in browser with help of [Babel](https://babeljs.io/) or another ES6 transpiler.
 
 ## What's not included
 Useless within javascript methods:
@@ -127,7 +127,8 @@ I didn't find proper implementations for them, so if you know it welcome to PR
 #### `smoothStep(a, b, t)`
 *Interpolates between min and max with smoothing at the limits*
 
-Additional:
+### Additional
+
 #### `closestPowerOfTwoLong(value)`
 *Same as `closestPowerOfTwo`, but deals well with big numbers. Use it if you really need to work with big numbers*
 
