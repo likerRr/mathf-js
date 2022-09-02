@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/likerRr/mathf-js/issues"
   },
-  "homepage": "https://github.com/likerRr/mathf-js#readme"
+  "homepage": "https://github.com/likerRr/mathf-js#readme",
+  "dependencies": {
+    "clamp": "^1.0.1"
+  }
 }

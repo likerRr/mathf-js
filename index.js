@@ -1,5 +1,8 @@
 'use strict';
 
+const clamp = require('clamp');
+
+
 const FULL_ANGLE = 360;
 
 const STRAIGHT_ANGLE = 180;
@@ -351,20 +354,46 @@ class Mathf {
   }
 
   /**
-   * TODO: need help in reverse engineering
    * Gradually changes a value towards a desired goal over time
    *
    * @see http://docs.unity3d.com/ScriptReference/Mathf.SmoothDamp.html
    * @deprecated
    * @param current
    * @param target
-   * @param currentVelocity
+   * @param refs.currentVelocity
    * @param smoothTime
    * @param maxSpeed
    * @param deltaTime
    * @returns {number}
    */
-  static smoothDamp(current, target, currentVelocity, smoothTime, maxSpeed, deltaTime) {}
+  static smoothDamp(current, target, refs, smoothTime, maxSpeed, deltaTime) {
+    // from https://stackoverflow.com/a/61372580/1927767
+    // Based on Game Programming Gems 4 Chapter 1.10
+    smoothTime = Math.max(0.0001, smoothTime)
+    const omega = 2.0 / smoothTime
+
+    const x = omega * deltaTime
+    const exp = 1.0 / (1.0 + x + 0.48 * x * x + 0.235 * x * x * x)
+    let change = current - target
+    const originalTo = target
+
+    // Clamp maximum speed
+    const maxChange = maxSpeed * smoothTime
+    change = clamp(change, -maxChange, maxChange)
+    target = current - change
+
+    const temp = (refs.currentVelocity + omega * change) * deltaTime
+    refs.currentVelocity = (refs.currentVelocity - omega * temp) * exp
+    let output = target + (change + temp) * exp
+
+    // Prevent overshooting
+    if (originalTo - current > 0.0 == output > originalTo) {
+      output = originalTo
+      refs.currentVelocity = (output - originalTo) / deltaTime
+    }
+
+    return output
+  }
 
   /**
    * TODO: need help in reverse engineering
